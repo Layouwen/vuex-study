@@ -8,7 +8,7 @@
     </div>
     <div>
       <span>年龄： {{ $store.state.age }}</span>
-      <button @click="$store.dispatch('changeAge', 'Avan')">
+      <button @click="$store.dispatch('changeAge', 21)">
         commit changeName
       </button>
     </div>
