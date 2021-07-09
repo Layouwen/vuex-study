@@ -4,16 +4,30 @@ let Vue
 // 核心代码
 class Store {
   constructor(options) {
+    this.getters = {}
+    this._wrapperGetters = options.getters
+    const computed = {}
+    Object.keys(this._wrapperGetters).forEach(key => {
+      const store = this
+      computed[key] = function() {
+        return store._wrapperGetters[key](store.state)
+      }
+      Object.defineProperty(store.getters, key, {
+        get() {
+          return store._vm[key]
+        },
+      })
+    })
     this._vm = new Vue({
       data() {
         return {
           $$state: options.state,
         }
       },
+      computed,
     })
     this.$mutations = options.mutations
     this.$actions = options.actions
-    this.getters = options.getters
 
     this.commit = this.commit.bind(this)
     this.dispatch = this.dispatch.bind(this)
