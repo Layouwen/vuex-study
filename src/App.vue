@@ -1,18 +1,24 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div>
+      <span>名字: {{ $store.state.name }}</span>
+      <button @click="$store.commit('changeName', 'Avan')">
+        commit changeName
+      </button>
+    </div>
+    <div>
+      <span>年龄： {{ $store.state.age }}</span>
+      <button @click="$store.dispatch('changeAge', 'Avan')">
+        commit changeName
+      </button>
+    </div>
+    <div>{{$store.getters.info}}</div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
 export default {
   name: 'App',
-  components: {
-    HelloWorld
-  }
 }
 </script>
 
