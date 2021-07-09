@@ -14,6 +14,9 @@ class Store {
     this.$mutations = options.mutations
     this.$actions = options.actions
     this.getters = options.getters
+
+    this.commit = this.commit.bind(this)
+    this.dispatch = this.dispatch.bind(this)
   }
   get state() {
     return this._vm.$data.$$state
@@ -25,6 +28,14 @@ class Store {
       return
     }
     entry(this.state, payload)
+  }
+  dispatch(type, payload) {
+    const entry = this.$actions[type]
+    if (!entry) {
+      console.error('action does not exist')
+      return
+    }
+    entry(this, payload)
   }
 }
 
