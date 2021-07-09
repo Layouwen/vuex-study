@@ -18,6 +18,14 @@ class Store {
   get state() {
     return this._vm.$data.$$state
   }
+  commit(type, payload) {
+    const entry = this.$mutations[type]
+    if (!entry) {
+      console.error('mutation does not exist')
+      return
+    }
+    entry(this.state, payload)
+  }
 }
 
 // 注册插件
